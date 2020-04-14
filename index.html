@@ -8,6 +8,11 @@ var version                 =   '1.1.1';
 
 
 //LOADING CSS FILES
+/***
+    requireCss('localStorageName', 'version', 'link to be loaded', call_back_function);
+    requireScript('localStorageName', 'version', 'link to be loaded', call_back_function);
+*/
+
 requireCss('bootstrap-css', version, 'https://cdn.cdn.com/assets/css/bootstrap.css');
 requireCss('style-css', version, 'https://cdn.cdn.com/assets/css/style.css');
 
@@ -15,10 +20,10 @@ requireCss('style-css', version, 'https://cdn.cdn.com/assets/css/style.css');
 requireScript('jquery-min-js', version, 'https://cdn.cdn.com/assets/js/jquery.min.js');
 requireScript('jquery-ui-min-js', version, 'https://cdn.cdn.com/assets/js/jquery-ui.min.js');
 
-var timeOut             =   setTimeout(function () 
-                            {
-                                location.reload();
-                            }, 600); 
+var timeOut                 =   setTimeout(function () 
+                                {
+                                    location.reload();
+                                }, 600); 
 
 if(setSomeThing)
 {
