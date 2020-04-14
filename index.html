@@ -1,42 +1,29 @@
 <!DOCTYPE html>
+<html>
 <head>
 <script>
 var setSomeThing                    =   false;
-var version                         =   '1.1.1';
+var version                         =   '1.7.1';
 
 //if newly added files to the local storage, page need to be refreshed! 
-   
-function reLoad(){
-   console.log('reLoad', setSomeThing)
-   if(setSomeThing){
-      clearTimeout(timeOut);
-      var timeOut                   =   setTimeout(function () 
-                                        {
-                                                location.reload();
-                                        }, 600); 
-   //if newly added files to the local storage, page need to be refreshed! 
-   timeOut;
-   }
-}
-        
-function _cacheCss(e,t,a){var n=new XMLHttpRequest;n.onreadystatechange=function(){4==n.readyState&&(200==n.status?localStorage.setItem(e,JSON.stringify({content:n.responseText,version:t})):console.warn("error loading "+a))},n.open("GET",a,!0),n.send()}function _loadCss(e,t,a,n){setSomeThing=2;var o=document.createElement("style");o.readyState?o.onreadystatechange=function(){setSomeThing=3; var timeOut=setTimeout(()=>{location.reload();},600);clearTimeout(timeOut);timeOut;"loaded"!=o.readyState&&"complete"!=o.readyState||(o.onreadystatechange=null,_cacheCss(t,a,e),n&&n())}:o.onload=function(){setSomeThing=4;_cacheCss(t,a,e),n&&n()},document.getElementsByTagName("head")[0].appendChild(o)}function _injectCss(e,t,a,n,o){var s=JSON.parse(e);if(s.version!=n)return localStorage.removeItem(a),void _loadCss(t,a,n,o);var c=document.createElement("style");c.type="text/css";var r=document.createTextNode(s.content);c.appendChild(r),document.getElementsByTagName("head")[0].appendChild(c),o&&o()}function requireCss(e,t,a,n){var o=localStorage.getItem(e);null==o?_loadCss(a,e,t,n):_injectCss(o,a,e,t,n)}
-function _cacheScript(c,a,b){var d=new XMLHttpRequest();d.onreadystatechange=function(){if(d.readyState==4){if(d.status==200){localStorage.setItem(c,JSON.stringify({content:d.responseText,version:a}))}else{console.warn("error loading "+b)}}};d.open("GET",b,true);d.send()}function _loadScript(c,b,a,e){setSomeThing=3;var d=document.createElement("script");if(d.readyState){d.onreadystatechange=function(){setSomeThing=1; var timeOut=setTimeout(()=>{location.reload();},600);clearTimeout(timeOut);timeOut;if(d.readyState=="loaded"||d.readyState=="complete"){d.onreadystatechange=null;_cacheScript(b,a,c);if(e){e()}}}}else{d.onload=function(){_cacheScript(b,a,c);if(e){e()}}}d.setAttribute("src",c);document.getElementsByTagName("head")[0].appendChild(d)}function _injectScript(g,e,d,b,i){var h=JSON.parse(g);if(h.version!=b){localStorage.removeItem(d);_loadScript(e,d,b,i);return}var f=document.createElement("script");f.type="text/javascript";var a=document.createTextNode(h.content);f.appendChild(a);document.getElementsByTagName("head")[0].appendChild(f);if(i){i()}}function requireScript(d,a,b,f){var e=localStorage.getItem(d);if(e==null){_loadScript(b,d,a,f)}else{_injectScript(e,b,d,a,f)}};
+function reLoad(){if(setSomeThing){console.log('reLoad', setSomeThing);clearTimeout(timeOut); var timeOut=setTimeout(()=>{location.reload();},1000);}}        
+function _cacheCss(e,t,a){var n=new XMLHttpRequest;n.onreadystatechange=function(){4==n.readyState&&(200==n.status?localStorage.setItem(e,JSON.stringify({content:n.responseText,version:t})):console.warn("error loading "+a))},n.open("GET",a,!0),n.send()}function _loadCss(e,t,a,n){setSomeThing=2;var o=document.createElement("style");o.readyState?o.onreadystatechange=function(){setSomeThing=3; "loaded"!=o.readyState&&"complete"!=o.readyState||(o.onreadystatechange=null,_cacheCss(t,a,e),n&&n())}:o.onload=function(){setSomeThing=4;_cacheCss(t,a,e),n&&n()},document.getElementsByTagName("head")[0].appendChild(o)}function _injectCss(e,t,a,n,o){var s=JSON.parse(e);if(s.version!=n)return localStorage.removeItem(a),void _loadCss(t,a,n,o);var c=document.createElement("style");c.type="text/css";var r=document.createTextNode(s.content);c.appendChild(r),document.getElementsByTagName("head")[0].appendChild(c),o&&o()}function requireCss(e,t,a,n){var o=localStorage.getItem(e);null==o?_loadCss(a,e,t,n):_injectCss(o,a,e,t,n)}
+function _cacheScript(c,a,b){var d=new XMLHttpRequest();d.onreadystatechange=function(){if(d.readyState==4){if(d.status==200){localStorage.setItem(c,JSON.stringify({content:d.responseText,version:a}))}else{console.warn("error loading "+b)}}};d.open("GET",b,true);d.send()}function _loadScript(c,b,a,e){setSomeThing='js1';var d=document.createElement("script");if(d.readyState){d.onreadystatechange=function(){setSomeThing='js2'; if(d.readyState=="loaded"||d.readyState=="complete"){d.onreadystatechange=null;_cacheScript(b,a,c);if(e){e()}}}}else{d.onload=function(){_cacheScript(b,a,c);if(e){e()}}}d.setAttribute("src",c);document.getElementsByTagName("head")[0].appendChild(d)}function _injectScript(g,e,d,b,i){var h=JSON.parse(g);if(h.version!=b){localStorage.removeItem(d);_loadScript(e,d,b,i);return}var f=document.createElement("script");f.type="text/javascript";var a=document.createTextNode(h.content);f.appendChild(a);document.getElementsByTagName("head")[0].appendChild(f);if(i){i()}}function requireScript(d,a,b,f){var e=localStorage.getItem(d);if(e==null){_loadScript(b,d,a,f)}else{_injectScript(e,b,d,a,f)}};
   
-//LOADING CSS FILES
+
 /***
     requireCss('localStorageName', 'version', 'link to be loaded', call_back_function);
     requireScript('localStorageName', 'version', 'link to be loaded', call_back_function);
 */
 
-requireCss('bootstrap-css', version, 'https://cdn.cdn.com/assets/css/bootstrap.css', reLoad);
-requireCss('style-css', version, 'https://cdn.cdn.com/assets/css/style.css', reLoad);
-
+//LOADING CSS FILES
+requireCss('jquery-ui-css', version, 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css', reLoad);
 //LOADING JS FILES
-requireScript('jquery-min-js', version, 'https://cdn.cdn.com/assets/js/jquery.min.js', reLoad);
-requireScript('jquery-ui-min-js', version, 'https://cdn.cdn.com/assets/js/jquery-ui.min.js', reLoad);
+requireScript('jquery-ui-min-js', version, 'https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery-ui.min.js', reLoad);
 
 </script>
 </head>
 <body>
     <div>This is the html page with assets in local storage</div>
 </body>
+</html>
